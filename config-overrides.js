@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = function override(config) {
@@ -13,13 +12,6 @@ module.exports = function override(config) {
         "url": require.resolve("url"),
         "buffer": require.resolve("buffer"),
     })
-    config.resolve.fallback = fallback;
-    config.plugins = (config.plugins || []).concat([
-        new webpack.ProvidePlugin({
-            process: 'process/browser',
-            Buffer: ['buffer', 'Buffer']
-        })
-    ])
     config.externals = [nodeExternals()];
 
     return config;
