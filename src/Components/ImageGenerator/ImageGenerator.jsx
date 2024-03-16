@@ -22,7 +22,7 @@ const ImageGenerator = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization:
-                    `Bearer ${process.env.OPENAI_API_KEY}`,
+                    `Bearer ${openaiApiKey}`,
                     "User-Agent": "OpenAI-Generator"
                 },
                 body: JSON.stringify({
