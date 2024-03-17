@@ -9,10 +9,10 @@ const ImageGenerator = () => {
     let inputRef = useRef(null);
     const [loading, set_loading] = useState(false);
 
-    const openaiApiKey = process.env.OPENAI_API_KEY;
+    const openaiApiKey = process.env.REACT_APP_OPENAI_API_KEY;
     const imageGenerator = async () => {
-        if (inputRef.current.value==="") {
-            return 0;
+        if (inputRef.current.value==='') {
+            return (0);
         }
         set_loading(true);
         const response = await fetch(
@@ -32,15 +32,20 @@ const ImageGenerator = () => {
                 }),
             }
         );
-        let data = await response.json();
-        let data_array = data.data;
-        set_image_url(data_array[0].url);
+        const data = await response.json();
+        const data_array = data.data;
+        if (Array.isArray(data_array) && data_array.length > 0 && data_array[0].url) {
+            set_image_url(data_array[0].url);
+        } else {
+            // Handle the case where data.data is undefined or not an array
+            console.error("Invalid data received:", data);
+        }
         set_loading(false);
     }
 
     return (
         <div className='generator'>
-        <div className="header">Ai image <span>generator</span></div>
+        <div className="header">Ai Image Generator</div>
         <div className="img-loading">
             <div className="image"><img src={image_url==="/"?default_image:image_url} alt="" /></div>
             <div className="loading">
